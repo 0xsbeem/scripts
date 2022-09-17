@@ -3,6 +3,11 @@
 # It will then update the ~/.config/bash/aws.env file with the necessary values.
 # Finally, it will source the new values, so you should be ready to go in the current shell.
 
+if [ -n $AWS_MFA_SERIAL_NUMBER ]; then
+  echo "AWS_MFA_SERIAL_NUMBER must be set. Usually, this is set in $XDG_CONFIG_HOME/bash/personal.env, which is sourced by bashrc."
+  exit 1
+fi
+
 # Get the session information
 info=`aws sts get-session-token --serial-number $AWS_MFA_SERIAL_NUMBER --token-code $1`
 access_key=`echo $info | jq -r ".Credentials" | jq -r ".AccessKeyId"`
