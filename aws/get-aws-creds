@@ -22,7 +22,7 @@ rm -f $file
 
 # Create the new file
 echo "export AWS_ACCESS_KEY_ID=$access_key" >> $file
-echo "export AWS_SECRET_ACCESS_KEY_ID=$secret_access_key" >> $file
+echo "export AWS_SECRET_ACCESS_KEY=$secret_access_key" >> $file
 echo "export AWS_SESSION_TOKEN=$session_token" >> $file
 echo "echo 'AWS credentials expire at $expiration'" >> $file
 
