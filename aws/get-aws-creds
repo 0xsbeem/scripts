@@ -1,7 +1,16 @@
 #!/bin/bash
+
 # This script takes one argument: the six digit MFA code from your AWS authenticator.
 # It will then update the ~/.config/bash/aws.env file with the necessary values.
 # Finally, it will source the new values, so you should be ready to go in the current shell.
+
+# First, make sure there are no stale credentials that would cause this command to fail.
+if command -v resetaws &> /dev/null
+then
+  resetaws
+else
+  echo "WARNING: resetaws command not found. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, or AWS_SESSION_TOKEN environment variables may be stale, preventing this script from running correctly."
+fi
 
 if [ -z $AWS_MFA_SERIAL_NUMBER ]; then
   echo "AWS_MFA_SERIAL_NUMBER must be set. Usually, this is set in $XDG_CONFIG_HOME/bash/personal.env, which is sourced by bashrc."
