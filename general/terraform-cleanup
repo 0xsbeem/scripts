@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Sometimes, terraform doesn't deploy nicely and you're expected to manually, one at a time, destroy the deployed resources to clean it up.
+
+# lol
+
+# So instead, this script will do that for you.
+
+# Run with `yes yes | ./terraform-cleanup`
+resources=( $(terraform state list) )
+declare -p resources
+
+for resource in "${resources[@]}"
+do
+  terraform destroy --target="$line"
+done
